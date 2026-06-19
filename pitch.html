@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitch — Manly Computronics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fffcf7;
+    color: #1a1a1a;
+    font-size: 13px;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 16mm 20mm 14mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #fffcf7;
+  }
+
+  .page-1 {
+    page-break-after: always;
+  }
+
+  .page-2 {
+    justify-content: flex-start;
+    padding-top: 18mm;
+  }
+
+  .pill {
+    display: inline-block;
+    background: #f0f4ff;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 5px 16px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .divider {
+    width: 50px;
+    height: 2px;
+    background: #ddd;
+    margin: 14px auto;
+    border: none;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 34px;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  .content {
+    max-width: 520px;
+    text-align: center;
+  }
+
+  .content p {
+    margin-bottom: 12px;
+    color: #333;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .content p strong {
+    color: #1a1a1a;
+  }
+
+  .qr-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+  }
+
+  .qr-block .qr-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 8px;
+  }
+
+  .qr-block img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 6px;
+  }
+
+  .qr-block .qr-scan {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 2px;
+  }
+
+  .qr-block .qr-url {
+    font-size: 11.5px;
+    color: #2563eb;
+    font-weight: 500;
+  }
+
+  .pricing-box {
+    background: #f0f4ff;
+    border: 1px solid #d0daf0;
+    border-radius: 12px;
+    padding: 18px 28px;
+    margin: 16px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .pricing-box .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 4px;
+  }
+
+  .pricing-box .price-sub {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .pricing-box ul {
+    list-style: none;
+    text-align: left;
+    display: inline-block;
+  }
+
+  .pricing-box ul li {
+    font-size: 12.5px;
+    color: #333;
+    padding: 3px 0;
+  }
+
+  .pricing-box ul li::before {
+    content: "✓ ";
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  .soft-close {
+    font-size: 12.5px;
+    color: #555;
+    font-style: italic;
+    margin: 12px 0 8px;
+  }
+
+  .sign-off {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 8px 0 4px;
+  }
+
+  .contact-line {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  .footer-line {
+    font-size: 10.5px;
+    color: #999;
+    margin-top: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Page 2 styles */
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 18px;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+    margin: 10px 0 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .col-header {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .col-header.before {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .col-header.after {
+    background: #f0fdf4;
+    color: #15803d;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .comparison-item {
+    padding: 7px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 11.5px;
+  }
+
+  .comparison-item.item-before {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  /* Remove bottom border from last row */
+  .comparison-item.last-row {
+    border-bottom: none;
+  }
+
+  .item-title {
+    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 11.5px;
+    margin-bottom: 1px;
+  }
+
+  .item-title .mark-bad {
+    color: #dc2626;
+    margin-right: 4px;
+  }
+
+  .item-title .mark-good {
+    color: #16a34a;
+    margin-right: 4px;
+  }
+
+  .item-desc {
+    font-size: 10.5px;
+    color: #777;
+    line-height: 1.4;
+  }
+
+  .summary-box {
+    background: #f8f7f4;
+    border: 1px solid #e5e3de;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin: 14px 0;
+    text-align: center;
+    width: 100%;
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .final-cta {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 10px 0 4px;
+  }
+
+  .final-contact {
+    font-size: 12.5px;
+    color: #2563eb;
+    font-weight: 500;
+  }
+
+  @media print {
+    body { background: none; }
+    .page { box-shadow: none; }
+  }
+
+  @media screen {
+    .page {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: The Personal Note -->
+<div class="page page-1">
+  <div class="content">
+    <span class="pill">A Note From a Local 15-Year-Old</span>
+    <hr class="divider">
+
+    <h1>Hi, I'm Zac</h1>
+
+    <p>I'm a 15-year-old from Manly (2095) who builds websites for local businesses. I spend my time designing, coding, and helping small businesses look their best online.</p>
+
+    <hr class="divider">
+
+    <p>I walk past your shop on Pittwater Road all the time — I reckon Manly Computronics is one of those places everyone on the Northern Beaches knows about. You guys have been around for years and Ben's reputation for being honest and fair is pretty well known locally.</p>
+
+    <p>I had a look at your current website and — no offence — it's pretty dated. It doesn't work on phones, Google can't really read it, and it doesn't show off what you actually do. So I built you a new one from scratch.</p>
+
+    <p><strong>I rebuilt your website from scratch — completely free.</strong></p>
+
+    <p>It's custom-built, works perfectly on mobile, and is optimised for Google and AI search so people searching for computer repair in Manly will actually find you.</p>
+
+    <div class="qr-block">
+      <span class="qr-label">&#9758; Your New Website</span>
+      <img src="images/manly-computronics-qr.png" alt="QR code to new website">
+      <span class="qr-scan">Scan to see it live</span>
+      <span class="qr-url">manly-computronics.pages.dev</span>
+    </div>
+
+    <div class="pricing-box">
+      <div class="price">$30/month</div>
+      <div class="price-sub">Everything included. No surprises.</div>
+      <ul>
+        <li>Custom-built website</li>
+        <li>Hosting &amp; maintenance included</li>
+        <li>No setup fee</li>
+        <li>No lock-in contract</li>
+        <li>Cancel anytime</li>
+      </ul>
+    </div>
+
+    <p class="soft-close">If it's not for you, that's completely fine — no pressure at all. I just wanted to show you what's possible.</p>
+
+    <div class="sign-off">— Zac</div>
+    <p class="contact-line">0401 102 066 &middot; zacmanzacmanoz@gmail.com</p>
+
+    <div class="qr-block" style="margin-top: 10px;">
+      <span class="qr-label">&#9758; My Website</span>
+      <img src="images/zac-website-qr.png" alt="QR code to Zac's website">
+      <span class="qr-url">zac-web-design.pages.dev</span>
+    </div>
+
+    <p class="footer-line">Designed for Manly Computronics &middot; 119 Pittwater Road, Manly</p>
+  </div>
+</div>
+
+<!-- PAGE 2: What We Improved -->
+<div class="page page-2">
+  <div style="width: 100%; text-align: center;">
+    <span class="pill">Before &amp; After</span>
+    <h2>Your Website, Reimagined</h2>
+    <p class="subtitle">Here's what changed — and why it matters.</p>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="col-header before">Before</div>
+    <div class="col-header after">After</div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>Outdated early-2000s design</div>
+      <div class="item-desc">Table-based layout with GIF navigation buttons</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Clean, modern, professional design</div>
+      <div class="item-desc">Built to look trustworthy and load fast</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No mobile responsiveness</div>
+      <div class="item-desc">Doesn't work on phones or tablets at all</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Mobile-first responsive design</div>
+      <div class="item-desc">Looks perfect on every phone, tablet, and desktop</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No Google visibility (SEO)</div>
+      <div class="item-desc">Missing title tags, meta descriptions, structured data</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Full Google SEO optimisation</div>
+      <div class="item-desc">Structured data, meta tags, local keywords throughout</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No AI search presence</div>
+      <div class="item-desc">Invisible to ChatGPT, Google AI, Perplexity</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>AI search ready</div>
+      <div class="item-desc">Schema markup so AI assistants recommend you</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>Services buried in dense text</div>
+      <div class="item-desc">Hard to find what you actually offer</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Clear service cards with descriptions</div>
+      <div class="item-desc">Six services laid out with compelling copy</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No customer reviews shown</div>
+      <div class="item-desc">Great reputation but website doesn't show it</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Real customer reviews &amp; ratings</div>
+      <div class="item-desc">Your best reviews showcased with 4.8&#9733; badge</div>
+    </div>
+
+    <div class="comparison-item item-before">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No Google Maps or directions</div>
+      <div class="item-desc">Customers can't find you from the site</div>
+    </div>
+    <div class="comparison-item">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Google Maps embed with directions</div>
+      <div class="item-desc">One tap to navigate to your shop</div>
+    </div>
+
+    <div class="comparison-item item-before last-row">
+      <div class="item-title"><span class="mark-bad">&#10007;</span>No opening hours displayed</div>
+      <div class="item-desc">People don't know when you're open</div>
+    </div>
+    <div class="comparison-item last-row">
+      <div class="item-title"><span class="mark-good">&#10003;</span>Opening hours front and centre</div>
+      <div class="item-desc">In the hero, contact section, FAQ, and schema</div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    This isn't a template. It's a website built specifically for Manly Computronics — your services, your reputation, your story. Every line of code was written by hand.
+  </div>
+
+  <p class="final-cta">Interested? Give me a call or text — happy to chat anytime.</p>
+  <p class="final-contact">Zac &middot; 0401 102 066 &middot; zacmanzacmanoz@gmail.com</p>
+</div>
+
+</body>
+</html>

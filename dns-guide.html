@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNS Guide — Manly Computronics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fffcf7;
+    color: #1a1a1a;
+    font-size: 13.5px;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 20mm 22mm 16mm;
+    display: flex;
+    flex-direction: column;
+    background: #fffcf7;
+    position: relative;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 2px;
+  }
+
+  .header-contact {
+    font-size: 12.5px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+
+  .intro {
+    font-size: 13.5px;
+    color: #333;
+    margin-bottom: 18px;
+    line-height: 1.65;
+  }
+
+  .intro strong {
+    color: #1a1a1a;
+  }
+
+  .warning-box {
+    background: #fef3cd;
+    border: 1.5px solid #f0c36d;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+
+  .warning-box .warning-title {
+    font-weight: 700;
+    font-size: 13.5px;
+    color: #856404;
+    margin-bottom: 6px;
+  }
+
+  .warning-box p {
+    font-size: 12.5px;
+    color: #6b5300;
+    line-height: 1.6;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+  }
+
+  .steps {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+
+  .steps li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    margin-top: 1px;
+  }
+
+  .ns-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .ns-box {
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .ns-box.old {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+
+  .ns-box.new {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .ns-box .ns-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .ns-box.old .ns-label {
+    color: #b91c1c;
+  }
+
+  .ns-box.new .ns-label {
+    color: #15803d;
+  }
+
+  .ns-box .ns-entry {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 12.5px;
+    padding: 3px 0;
+  }
+
+  .ns-box.old .ns-entry {
+    text-decoration: line-through;
+    color: #dc2626;
+  }
+
+  .ns-box.new .ns-entry {
+    color: #15803d;
+    font-weight: 700;
+  }
+
+  .ns-note {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .timing {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .timing strong {
+    color: #1a1a1a;
+  }
+
+  .handle-box {
+    background: #f0f4ff;
+    border: 1px solid #d0daf0;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+
+  .handle-box .handle-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #2563eb;
+    margin-bottom: 6px;
+  }
+
+  .handle-box p {
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .footer {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 14px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .footer .footer-main {
+    font-size: 13px;
+    color: #2563eb;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .footer .footer-sub {
+    font-size: 11.5px;
+    color: #999;
+  }
+
+  @media print {
+    body { background: none; }
+    .page { box-shadow: none; }
+  }
+
+  @media screen {
+    .page {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Connecting Your Domain</h1>
+  <p class="header-sub">Prepared for Manly Computronics by Zac Nowytarger</p>
+  <p class="header-contact">0401 102 066</p>
+
+  <p class="intro">To connect your domain <strong>manlycomputronics.com.au</strong> to your new website, we just need to update your nameservers. This is a simple change that takes about 5 minutes.</p>
+
+  <div class="warning-box">
+    <div class="warning-title">&#9888;&#65039; Important: Email Safety</div>
+    <p>If you use email on this domain (e.g. help@manlycomputronics.com.au), I'll set up all your email records (MX, SPF, DKIM) on the new system <strong>before</strong> asking you to make this change. I won't ask you to switch until everything is ready and tested. Your email will not be interrupted.</p>
+  </div>
+
+  <h2>Step-by-Step (Netregistry)</h2>
+
+  <ol class="steps">
+    <li>
+      <span class="step-num">1</span>
+      <span>Log in to your Netregistry account at <strong>netregistry.com.au</strong></span>
+    </li>
+    <li>
+      <span class="step-num">2</span>
+      <span>Click <strong>"My Domains"</strong> or <strong>"Domain Names"</strong> in the dashboard</span>
+    </li>
+    <li>
+      <span class="step-num">3</span>
+      <span>Click on <strong>"manlycomputronics.com.au"</strong></span>
+    </li>
+    <li>
+      <span class="step-num">4</span>
+      <span>Look for <strong>"Nameservers"</strong> or <strong>"DNS Settings"</strong> — click <strong>"Manage"</strong> or <strong>"Edit"</strong></span>
+    </li>
+    <li>
+      <span class="step-num">5</span>
+      <span>Replace the current nameservers with the new ones shown below</span>
+    </li>
+    <li>
+      <span class="step-num">6</span>
+      <span>Click <strong>"Save"</strong> or <strong>"Update"</strong></span>
+    </li>
+  </ol>
+
+  <div class="ns-section">
+    <div class="ns-box old">
+      <div class="ns-label">Current (remove these)</div>
+      <div class="ns-entry">ns1.netregistry.net</div>
+      <div class="ns-entry">ns2.netregistry.net</div>
+      <div class="ns-entry">ns3.netregistry.net</div>
+    </div>
+    <div class="ns-box new">
+      <div class="ns-label">New (enter these)</div>
+      <div class="ns-entry">dave.ns.cloudflare.com</div>
+      <div class="ns-entry">shubhi.ns.cloudflare.com</div>
+    </div>
+  </div>
+
+  <p class="ns-note">If there's a third nameserver field, leave it blank or remove it.</p>
+
+  <p class="timing"><strong>Timing:</strong> Changes usually take effect within 1 &ndash; 24 hours. During this time your site may show the old or new version — this is normal.</p>
+
+  <div class="handle-box">
+    <div class="handle-title">I'll Handle Everything Else</div>
+    <p>Once the nameservers are updated, I'll take care of: SSL certificate, DNS records, email configuration, and final testing. You don't need to do anything else.</p>
+  </div>
+
+  <div class="footer">
+    <p class="footer-main">Questions? Call Zac on 0401 102 066</p>
+    <p class="footer-sub">Prepared for Ben — Manly Computronics</p>
+  </div>
+</div>
+
+</body>
+</html>
